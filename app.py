@@ -61,7 +61,8 @@ if uploaded_file is not None:
                 busy_users={}
                 busy_users=df['users'].value_counts().head()
             
-                busy_users.pop('group_notification')
+                if 'group_notification' in busy_users.index:
+                    busy_users = busy_users.drop('group_notification')
                 fig, ax = plt.subplots()
 
                 busy_users.plot(kind='bar', ax=ax,color='teal')
@@ -75,7 +76,7 @@ if uploaded_file is not None:
                 created_df = created_df[created_df['User'] != 'group_notification']
 
                 # Add top margin before displaying the table
-                st.markdown("<div style='margin-top: 70px'></div>", unsafe_allow_html=True)
+                st.markdown("<div style='margin-top: 80px'></div>", unsafe_allow_html=True)
 
                 # Display the table
                 st.dataframe(created_df, width=500)  # wider table
