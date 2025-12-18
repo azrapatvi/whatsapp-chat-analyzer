@@ -195,12 +195,24 @@ if uploaded_file is not None:
 
 
         st.header("🗓️ Weekly Activity Map")
-        daily_activness=helper.daily_activness(selected_user,df)
+        df = helper.daily_activness(selected_user, df)
 
-        fig,ax=plt.subplots(figsize=(12,5))
-        sns.heatmap(df.pivot_table(index='day_name',columns='period',values='message',aggfunc='count'))
-        plt.xticks(rotation='vertical')
+        order = ['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday']
+
+        heatmap_data = df.pivot_table(
+            index='day_name',
+            columns='period',
+            values='message',
+            aggfunc='count'
+        ).reindex(order)
+        fig, ax = plt.subplots(figsize=(14, 6))
+        sns.heatmap(heatmap_data, ax=ax)
+        plt.xticks(rotation='horizontal')
+        plt.yticks(rotation='horizontal')
         st.pyplot(fig)
+
+        
+    
 
     else:
         # Show intro only before analysis
