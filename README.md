@@ -68,9 +68,3 @@ The app automatically generates:
 - Understand your chat activity better! 🚀
 
 ---
-
-## Author
-**Azra Patvi**  
-- AI & Data Science Enthusiast  
-- Web Developer & Data Analyst  
-- Passionate about combining creativity with technology to build impactful solutions
