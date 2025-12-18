@@ -155,7 +155,7 @@ def day_name_analysis(selected_user,df):
     if selected_user != 'overall':
         df = df[df['users'] == selected_user]
 
-    df['day_name']=df['date'].dt.day_name()
+   
     day_name_analysis=df.groupby(['day_name']).count()['message'].reset_index()
 
     return day_name_analysis
@@ -168,20 +168,21 @@ def monthly_analysis(selected_user,df):
 
     return month_analysis
 
-def daily_activness(selected_user,df):
+def daily_activness(selected_user, df):
     if selected_user != 'overall':
         df = df[df['users'] == selected_user]
 
-    period=[]
-    hour=0
-    for hour in df[['day_name','hour']]['hour']:
-        if hour==23:
-            period.append(str(hour)+"-"+str('00'))
-        elif hour==0:
-            period.append(str('00')+"-"+str(hour+1))
-        else:
-            period.append(str(hour)+"-"+str(hour+1))
+    period = []
 
-    df['period']=period
+    for hour in df['hour']:
+        if hour == 23:
+            period.append("23-00")
+        elif hour == 0:
+            period.append("00-1")
+        else:
+            period.append(f"{hour}-{hour+1}")
+
+    df = df.copy()        # IMPORTANT
+    df['period'] = period
 
     return df
